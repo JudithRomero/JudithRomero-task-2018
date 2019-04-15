@@ -1,0 +1,12 @@
+{
+  "javascript.format.enable": false,
+  "editor.tabSize": 2,
+  "files.eol": "\n",
+  "javascript.validate.enable": false,
+  "typescript.preferences.quoteStyle": "single",
+  "javascript.preferences.quoteStyle": "single",
+  "eslint.validate": [
+    "typescript",
+    "typescriptreact"
+  ]
+}

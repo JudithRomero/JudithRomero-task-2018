@@ -1,0 +1,224 @@
+.logo, .tag, .action {
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+}
+
+.adventure, .tag-title, .scene-text, .achievement {
+  font-family: 'Gabriela', Georgia, 'Times New Roman', Times, serif;
+}
+
+body {
+  margin: 0;
+  background: #fff;
+}
+
+.logo-right {
+  color: #000;
+} 
+
+.logo-left {
+  color: #C62828;
+}
+
+.logo-icon {
+  padding: 1ch;
+  background: no-repeat url('/logo_icon.svg') left center;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  font-size: 48px;
+  margin-left: 50px;
+  text-decoration: none;
+}
+
+.header {
+  border-bottom: 1px solid #959393;
+  display: flex;
+  height: 95px;
+}
+
+.main {
+  word-break: break-word;
+}
+
+.adventures {
+  margin: 0 auto;
+  width: 800px;
+}
+
+.scene {
+  margin: 0 auto;
+  width: 950px;
+}
+
+.adventure-name, .adventure-desc, .tag-title {
+  font-size: 30px;
+  color: #000;
+  margin: 0;
+  margin-bottom: 15px;
+  font-weight: normal;
+  text-decoration: none;
+}
+
+.adventure-name {
+  display: block;
+}
+
+.tag-title {
+  font-size: 42px;
+  margin: 0;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.adventure-desc {
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
+.adventure {
+  display: flex;
+  margin-bottom: 50px;
+  align-items: flex-start;
+}
+
+.adventure-img {
+  width: 200px;
+  height: 152px;
+  object-fit: cover;
+}
+
+.adventure-img-link {
+  margin-right: 34px;
+}
+
+.adventure-img:hover {
+  opacity: .9;
+}
+
+.adventure-name:hover {
+  text-decoration: underline;
+}
+
+.tag, .action {
+  display: inline-block;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .3s;
+}
+
+.tag {
+  font-size: 18px;
+  background: #b3b3b3;
+  padding: 8px 15px;
+  display: inline-block;
+  margin-right: 9px;
+  margin-bottom: 9px;
+}
+
+.tag:hover {
+  color: #b3b3b3;
+  background: #eee;
+}
+
+.scene-image {
+  position: relative;
+  width: 950px;
+  height: 380px;
+  margin-top: 60px;
+  margin-bottom: 35px;
+}
+
+.scene-image-img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.scene-image-text {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 22px;
+  line-height: 36px;
+  margin: 0;
+  color: #fff;
+  padding: 20px;
+  text-shadow: 0 0 2px #000, 0 0 2px #000, 0 0 2px #000, 0 0 2px #000, 0 0 2px #000, 0 0 2px #000;
+  white-space: pre;
+}
+
+.south {
+  top: auto;
+  bottom: 0;
+}
+
+.east {
+  left: auto;
+  right: 0;
+}
+
+.action {
+  font-size: 34px;
+  background: #555;
+  padding: 20px 52px;
+  margin-right: 52px;
+  margin-bottom: 52px;
+}
+
+.action:hover {
+  color: #555;
+  background: #eee;
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  padding-top: 37px;
+  flex-wrap: wrap;
+}
+
+.achievement-title {
+  font-size: 30px;
+  margin: 0;
+}
+
+.achievement-description {
+  font-size: 48px;
+  margin: 0;
+}
+
+.achievement-img {
+  border-radius: 50%;
+  width: 147px;
+  height: 147px;
+  background: #C62828;
+  margin-right: 21px;
+  object-fit: cover;
+}
+
+.achievement {
+  display: flex;
+  align-items: center;
+  flex: 0 0 50%;
+}
+
+.achievement:not(:last-child):not(:nth-last-child(2)) {
+  margin-bottom: 20px;
+}
+
+.achievement:nth-child(1n):last-child {
+  flex: 1 1 auto;
+}
+
+.achievements {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
