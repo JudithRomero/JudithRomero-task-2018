@@ -89,7 +89,7 @@ body {
   object-fit: cover;
 }
 
-.adventure > :first-child {
+.adventure-img-link {
   margin-right: 34px;
 }
 
@@ -101,18 +101,22 @@ body {
   text-decoration: underline;
 }
 
+.tag, .action {
+  display: inline-block;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background .3s;
+}
+
 .tag {
   font-size: 18px;
-  color: #fff;
   background: #b3b3b3;
-  border-radius: 4px;
   padding: 8px 15px;
   display: inline-block;
   margin-right: 9px;
   margin-bottom: 9px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background 300ms;
 }
 
 .tag:hover {
@@ -120,7 +124,7 @@ body {
   background: #eee;
 }
 
-.scene-img {
+.scene-image {
   position: relative;
   width: 950px;
   height: 380px;
@@ -128,7 +132,7 @@ body {
   margin-bottom: 35px;
 }
 
-.scene-img > img {
+.scene-image-img {
   position: absolute;
   left: 0;
   top: 0;
@@ -137,7 +141,7 @@ body {
   object-fit: contain;
 }
 
-.scene-text {
+.scene-image-text {
   position: absolute;
   left: 0;
   top: 0;
@@ -162,16 +166,10 @@ body {
 
 .action {
   font-size: 34px;
-  color: #fff;
   background: #555;
-  border-radius: 4px;
   padding: 20px 52px;
-  display: inline-block;
   margin-right: 52px;
   margin-bottom: 52px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: background 300ms;
 }
 
 .action:hover {
@@ -183,6 +181,7 @@ body {
   display: flex;
   justify-content: center;
   padding-top: 37px;
+  flex-wrap: wrap;
 }
 
 .achievement-title {
@@ -210,7 +209,7 @@ body {
   flex: 0 0 50%;
 }
 
-.achievement:nth-child(1n):not(:last-child):not(:nth-last-child(2)) {
+.achievement:not(:last-child):not(:nth-last-child(2)) {
   margin-bottom: 20px;
 }
 

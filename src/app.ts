@@ -17,6 +17,8 @@ export default async (models: Models) => {
   app.set('views', path.join(__dirname, 'views'))
   app.use('/', express.static(path.join(__dirname, 'static')))
   hbs.registerPartials(path.join(__dirname, 'views'))
+  hbs.registerHelper('defaultImgPlaceholder',
+    () => new hbs.handlebars.SafeString('onerror="this.src=\'/android-chrome-512x512.png\'"'))
   const get = (
     url: string,
     handler: (req: Request, res: Response) => Promise<void>,

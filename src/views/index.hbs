@@ -3,8 +3,8 @@
     <h1 class="tag-title">{{#if title}}#{{title}}{{/if}}</h1>
     {{#each adventures}}
       <div class="adventure">
-        <a title="{{name}}" href="/scene/{{sceneId}}?root={{sceneId}}">
-          <img alt="{{name}}" onerror="this.src='/android-chrome-512x512.png'" src="{{imageUrl}}" class="adventure-img">
+        <a class="adventure-img-link" title="{{name}}" href="/scene/{{sceneId}}?root={{sceneId}}">
+          <img alt="{{name}}" {{defaultImgPlaceholder}} src="{{imageUrl}}" class="adventure-img">
         </a>
         <div>
           <a href="/scene/{{sceneId}}?root={{sceneId}}" class="adventure-name">{{name}}</a>
