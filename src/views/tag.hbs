@@ -1,0 +1,17 @@
+{{#>template}}
+  <div class="adventures">
+    <h1 class="tag-title">{{#if title}}#{{title}}{{/if}}</h1>
+    {{#each adventures}}
+      <div class="adventure">
+        <a class="adventure-img-link" title="{{name}}" href="/scene/{{sceneId}}?root={{sceneId}}">
+          <img alt="{{name}}" {{defaultImgPlaceholder}} src="{{imageUrl}}" class="adventure-img">
+        </a>
+        <div>
+          <a href="/scene/{{sceneId}}?root={{sceneId}}" class="adventure-name">{{name}}</a>
+          <p class="adventure-desc">{{description}}</p>
+          {{#each tags}}<a href="/tag/{{lookup this 1}}" class="button button-tag">#{{lookup this 0}}</a>{{/each}}
+        </div>
+      </div>
+    {{/each}}
+  </div>
+{{/template}}

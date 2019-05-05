@@ -1,19 +1,19 @@
 {{#>template}}
-  <div class="adventures">
-    <h1 class="tag-title">{{#if title}}#{{title}}{{/if}}</h1>
-    {{#each adventures}}
-      <div class="adventure">
-        <a class="adventure-img-link" title="{{name}}" href="/scene/{{sceneId}}?root={{sceneId}}">
-          <img alt="{{name}}" {{defaultImgPlaceholder}} src="{{imageUrl}}" class="adventure-img">
-        </a>
-        <div>
-          <a href="/scene/{{sceneId}}?root={{sceneId}}" class="adventure-name">{{name}}</a>
-          <p class="adventure-desc">{{description}}</p>
-          {{#each tags}}
-            <a href="/tag/{{lookup this 1}}" class="tag">#{{lookup this 0}}</a>
-          {{/each}}
+  <div class="adventures-controls">
+    <form id="searchform">
+      <div class="searchbox">
+        <input id="searchbox-input" autofocus class="input searchbox-input" placeholder="Текст запроса" />
+        <button id="submit-btn" class="button button-search searchbox-button">Найти</button>
+      </div><!--
+      --><div id="tagbox" class="tagbox">
+        <div class="tagbox-list">
+          <input id="tagbox-input" class="input tagbox-input" placeholder="Хештег" />
+          <div style="display: none" id="tagbox-suggestions" class="tagbox-suggestions"></div>
         </div>
       </div>
-    {{/each}}
+    </form>
   </div>
+  <div id="adventures" class="adventures"></div>
+  <script id="alltags" type="application/json">{{{tags}}}</script>
+  <script async src="/index.js"></script>
 {{/template}}

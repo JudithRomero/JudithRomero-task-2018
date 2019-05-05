@@ -1,4 +1,6 @@
 import sequelize, { Model, Sequelize } from 'sequelize'
+import randomWords from 'random-words'
+import translit from 'latin-to-cyrillic'
 
 
 type Mdl = (new () => Model<any, any>) & typeof Model
@@ -28,6 +30,9 @@ export class Models {
 
 export const init = async (models: Models) => {
   await models.db.sync({ force: true })
+  const tags: any[] = await Promise.all(randomWords(25).map((word: string) => models.tag
+    .create({ name: translit(word), linkName: word })
+    .catch(() => {})))
   const tag: any = await models.tag.create({ name: 'магия', linkName: 'magic' })
   const tag2: any = await models.tag.create({ name: 'тестоваямагия', linkName: 'magic2' })
   const scenes = await Promise.all([
@@ -54,7 +59,12 @@ export const init = async (models: Models) => {
     models.actionScene.create({ sceneId: scenes[0].id, actionId: actions[0].id }),
     models.actionScene.create({ sceneId: scenes[0].id, actionId: actions[1].id }),
   ])
-  const adventures = await Promise.all([
+  const adventures: any[] = await Promise.all([
+    ...randomWords(25).map((word: string, i: number) => models.adventure.create({
+      name: `Приключение ${i + 1}: ${word}`,
+      description: randomWords({ exactly: 5, join: ' ' }),
+      sceneId: scenes[0].id,
+    })),
     models.adventure.create({
       name: 'Тестовое приключение #2',
       sceneId: scenes[0].id,
@@ -69,29 +79,35 @@ export const init = async (models: Models) => {
       name: 'Тестовое приключение #3',
       description: 'То же приключение, но без картинки и без стартовой сцены',
     }),
-  ]) as any[]
-  await Promise.all([
-    models.adventureTag.create({ adventureId: adventures[0].id, tagId: tag.id }),
-    models.adventureTag.create({ adventureId: adventures[1].id, tagId: tag.id }),
-    models.adventureTag.create({ adventureId: adventures[1].id, tagId: tag2.id }),
   ])
-  await models.achievement.create({
-    description: 'Мудрец',
-    sceneId: scenes[1].id,
-    imageUrl: '/wizard.jpg',
-  })
-  await models.achievement.create({
-    description: 'Мудрец2',
-    sceneId: scenes[1].id,
-  })
-  await models.achievement.create({
-    description: 'Мудрец3',
-    sceneId: scenes[1].id,
-  })
-  await models.achievement.create({
-    description: 'Вы прошли игру!',
-    sceneId: scenes[2].id,
-  })
+  await Promise.all([
+    ...tags.concat(tags).filter(Boolean).map((t: any) => models.adventureTag
+      .create({
+        adventureId: adventures[Math.floor(Math.random() * 20)].id,
+        tagId: t.id,
+      })
+      .catch(() => {})),
+    models.adventureTag.create({ adventureId: adventures[25].id, tagId: tag.id }),
+    models.adventureTag.create({ adventureId: adventures[26].id, tagId: tag.id }),
+    models.adventureTag.create({ adventureId: adventures[26].id, tagId: tag2.id }),
+    models.achievement.create({
+      description: 'Мудрец',
+      sceneId: scenes[1].id,
+      imageUrl: '/wizard.jpg',
+    }),
+    models.achievement.create({
+      description: 'Мудрец2',
+      sceneId: scenes[1].id,
+    }),
+    models.achievement.create({
+      description: 'Мудрец3',
+      sceneId: scenes[1].id,
+    }),
+    models.achievement.create({
+      description: 'Вы прошли игру!',
+      sceneId: scenes[2].id,
+    }),
+  ])
 }
 
 export const connect = async (conString: string): Promise<Models> => {
@@ -147,7 +163,7 @@ export const connect = async (conString: string): Promise<Models> => {
     name: { type: sequelize.STRING },
     description: { type: sequelize.TEXT },
     imageUrl: { type: sequelize.TEXT },
-  }, { sequelize: db, timestamps: false, modelName: 'adventure' })
+  }, { collate: 'C', sequelize: db, timestamps: false, modelName: 'adventure' })
   ActionScene.init({}, { sequelize: db, timestamps: false, modelName: 'action_scene' })
   AdventureTag.init({}, { sequelize: db, timestamps: false, modelName: 'adventure_tag' })
   Adventure.belongsToMany(Tag, { through: AdventureTag })

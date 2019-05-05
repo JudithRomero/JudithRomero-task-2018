@@ -1,8 +1,8 @@
-.logo, .tag, .action {
+.logo, .button, .input, .tagbox-suggestions {
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 
-.adventure, .tag-title, .scene-text, .achievement {
+.adventure, .tag-title, .scene-image, .achievement {
   font-family: 'Gabriela', Georgia, 'Times New Roman', Times, serif;
 }
 
@@ -42,9 +42,10 @@ body {
   word-break: break-word;
 }
 
-.adventures {
+.adventures, .adventures-controls {
   margin: 0 auto;
   width: 800px;
+  transition: opacity .3s;
 }
 
 .scene {
@@ -67,9 +68,7 @@ body {
 
 .tag-title {
   font-size: 42px;
-  margin: 0;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  margin: 30px 0;
 }
 
 .adventure-desc {
@@ -84,13 +83,18 @@ body {
 }
 
 .adventure-img {
-  width: 200px;
-  height: 152px;
-  object-fit: cover;
+  height: 200px;
 }
 
 .adventure-img-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   margin-right: 34px;
+  flex: 0 0 200px;
+  width: 200px;
+  height: 152px;
+  overflow: hidden;
 }
 
 .adventure-img:hover {
@@ -101,27 +105,53 @@ body {
   text-decoration: underline;
 }
 
-.tag, .action {
+.button {
   display: inline-block;
   border-radius: 4px;
+  border: 0;
   color: #fff;
   cursor: pointer;
   text-decoration: none;
   transition: background .3s;
 }
 
-.tag {
+.button-tag, .button-search, .button-btag {
   font-size: 18px;
   background: #b3b3b3;
   padding: 8px 15px;
   display: inline-block;
+}
+
+.button-tag {
   margin-right: 9px;
   margin-bottom: 9px;
 }
 
-.tag:hover {
+.button-tag:hover {
   color: #b3b3b3;
   background: #eee;
+}
+
+.button-search {
+  background: #C62828;
+}
+
+.button-search:hover {
+  background: #eee;
+  color: #C62828;
+}
+
+.button-btag-cross {
+  cursor: pointer;
+  margin-left: 1ch;
+  font-size: 90%;
+}
+
+.button-btag {
+  cursor: default;
+  background: #2C9CDB;
+  margin-right: 15px;
+  margin-bottom: 15px;
 }
 
 .scene-image {
@@ -164,7 +194,7 @@ body {
   right: 0;
 }
 
-.action {
+.button-action {
   font-size: 34px;
   background: #555;
   padding: 20px 52px;
@@ -172,9 +202,18 @@ body {
   margin-bottom: 52px;
 }
 
-.action:hover {
+.button-action:hover {
   color: #555;
   background: #eee;
+}
+
+.input {
+  width: 100%;
+  border: 1px solid #ccc;
+  font-size: 15px;
+  padding: 1px;
+  padding-left: 12px;
+  color: #000;
 }
 
 .actions {
@@ -221,4 +260,63 @@ body {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+}
+
+.searchbox {
+  display: flex;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+.searchbox-button {
+  flex: 0 0 auto;
+}
+
+.searchbox-input {
+  margin-right: 15px;
+  height: 34px;
+}
+
+.tagbox {
+  margin-bottom: 15px;
+  min-height: 55px;
+}
+
+.tagbox-input {
+  height: 34px;
+  width: 300px;
+}
+
+.tagbox-list {
+  position: relative;
+  float: right;
+}
+
+.tagbox-suggestions {
+  border: 1px solid #ccc;
+  width: 100%;
+  font-size: 15px;
+  position: absolute;
+  box-sizing: border-box;
+  border-top: 0;
+  border-bottom: 0;
+}
+
+.tagbox-suggestion {
+  padding: 1px;
+  padding-left: 12px;
+  min-height: 34px;
+  line-height: 34px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background: #fff;
+}
+
+.tagbox-suggestion.hover {
+  background: #faa;
+}
+
+.tagbox-suggestion:last-child {
+  border-bottom: 1px solid #ccc;
 }

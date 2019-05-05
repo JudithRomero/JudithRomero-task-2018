@@ -1,16 +1,18 @@
 {
-  "name": "task1",
+  "name": "judithromero-task-2018",
   "version": "1.0.0",
   "description": "",
   "private": true,
   "scripts": {
     "test": "npm run lint:eslint && npm run tscheck",
-    "lint:eslint": "eslint --ext .ts src",
+    "lint:eslint": "eslint --ext .ts src test",
     "tscheck": "tsc -p . --noEmit",
     "dev": "tsnd --respawn --transpileOnly -r dotenv/config ./src/index.ts",
     "build": "tsc && copyfiles -u 1 src/static/* src/views/* build",
     "rebuild": "rimraf build && npm run build",
-    "start": "node ./build"
+    "start": "node ./build",
+    "mocha": "mocha -r test/ts-hook test/**/*.ts",
+    "deploy": "heroku container:login && heroku container:push web -a judithromero-task-2018 && heroku container:release web -a judithromero-task-2018"
   },
   "husky": {
     "hooks": {
@@ -21,7 +23,7 @@
     "*.ts": "eslint"
   },
   "keywords": [],
-  "author": "",
+  "author": "judithromero",
   "license": "UNLICENSED",
   "dependencies": {
     "@types/express": "^4.16.1",
@@ -29,22 +31,33 @@
     "@types/sequelize": "^4.27.46",
     "copyfiles": "^2.1.0",
     "express": "^4.16.4",
-    "hbs": "^4.0.3",
+    "hbs": "^4.0.4",
+    "latin-to-cyrillic": "^1.0.1",
     "pg": "^7.9.0",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^5.2.12",
+    "random-words": "^1.1.0",
+    "sequelize": "^5.7.1",
     "typescript": "^3.4.2"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/lodash": "^4.14.123",
+    "@types/mocha": "^5.2.6",
     "@typescript-eslint/eslint-plugin": "^1.6.0",
     "@typescript-eslint/parser": "^1.6.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.1",
     "dotenv": "^7.0.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
+    "heroku": "^7.22.10",
     "husky": "^1.3.1",
     "lint-staged": "^8.1.5",
+    "lodash": "^4.17.11",
+    "mocha": "^6.1.4",
     "rimraf": "^2.6.3",
+    "ts-node": "^8.1.0",
     "ts-node-dev": "^1.0.0-pre.32"
   }
 }
