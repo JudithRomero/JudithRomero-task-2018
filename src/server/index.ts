@@ -1,4 +1,4 @@
-import getApp from './app'
+import { getApp } from './app'
 import { init, connect } from './models'
 
 

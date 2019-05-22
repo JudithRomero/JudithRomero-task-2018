@@ -21,7 +21,7 @@ body {
 
 .logo-icon {
   padding: 1ch;
-  background: no-repeat url('/logo_icon.svg') left center;
+  background: no-repeat url('./static/logo_icon.svg') left center;
 }
 
 .logo {
@@ -84,6 +84,8 @@ body {
 
 .adventure-img {
   height: 200px;
+  min-width: 200px;
+  background: #c62828;
 }
 
 .adventure-img-link {
@@ -145,6 +147,7 @@ body {
   cursor: pointer;
   margin-left: 1ch;
   font-size: 90%;
+  user-select: none;
 }
 
 .button-btag {
@@ -179,8 +182,9 @@ body {
   line-height: 36px;
   margin: 0;
   color: #fff;
-  padding: 20px;
-  text-shadow: 0 0 2px #000, 0 0 2px #000, 0 0 2px #000, 0 0 2px #000, 0 0 2px #000, 0 0 2px #000;
+  margin: 20px 12px;
+  padding: 0px 8px;
+  background: #000;
   white-space: pre;
 }
 
@@ -237,6 +241,7 @@ body {
   border-radius: 50%;
   width: 147px;
   height: 147px;
+  flex: 0 0 147px;
   background: #C62828;
   margin-right: 21px;
   object-fit: cover;

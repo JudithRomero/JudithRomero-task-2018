@@ -1,0 +1,43 @@
+{
+  "extends": ["airbnb-base", "plugin:react/recommended", "plugin:@typescript-eslint/recommended"],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["react", "@typescript-eslint"],
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/resolver": {
+      "node": {
+        "extensions": [".ts", ".tsx"]
+      }
+    }
+  },
+  "rules": {
+    "react/prop-types": ["off"],
+    "no-continue": ["off"],
+    "no-bitwise": ["off"],
+    "class-methods-use-this": ["off"],
+    "import/no-webpack-loader-syntax": ["off"],
+    "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+    "indent": ["error", 2],
+    "semi": ["error", "never"],
+    "object-curly-newline": ["error", { "multiline": true }],
+    "no-param-reassign": ["error", { "props": false }],
+    "no-underscore-dangle": ["error", { "enforceInMethodNames": false, "allowAfterThis": true }],
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "import/newline-after-import": ["error", { "count": 2 }],
+    "no-multiple-empty-lines": ["error", { "max": 2, "maxBOF": 0, "maxEOF": 1 }],
+    "lines-between-class-members": ["error", "always", { "exceptAfterSingleLine": true }],
+    "spaced-comment": ["error", "always", { "markers": ["/"] }],
+    "@typescript-eslint/explicit-member-accessibility": ["off"],
+    "@typescript-eslint/indent": ["off"],
+    "@typescript-eslint/explicit-function-return-type": ["off"],
+    "@typescript-eslint/no-explicit-any": ["off"],
+    "@typescript-eslint/member-delimiter-style": ["off"],
+    "@typescript-eslint/no-unused-vars": ["error"]
+  }
+}

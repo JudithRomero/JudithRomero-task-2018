@@ -54,10 +54,13 @@ export const init = async (models: Models) => {
   const actions = await Promise.all([
     models.action.create({ description: 'Стать мудрее', sceneId: scenes[1].id }),
     models.action.create({ description: 'Перейти в конец', sceneId: scenes[2].id }),
+    models.action.create({ description: 'Начать заново', sceneId: scenes[0].id }),
   ]) as any[]
   await Promise.all([
     models.actionScene.create({ sceneId: scenes[0].id, actionId: actions[0].id }),
     models.actionScene.create({ sceneId: scenes[0].id, actionId: actions[1].id }),
+    models.actionScene.create({ sceneId: scenes[1].id, actionId: actions[2].id }),
+    models.actionScene.create({ sceneId: scenes[2].id, actionId: actions[2].id }),
   ])
   const adventures: any[] = await Promise.all([
     ...randomWords(25).map((word: string, i: number) => models.adventure.create({
