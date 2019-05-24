@@ -19,9 +19,13 @@ export default class Tag extends React.Component<any> {
       if (!this.mounted) return
       const adv: AdventureProp[] = adventures
         .map(a => ({
-          ...a,
-          tags: a.tags.map(t => ({ name: t[0], linkName: t[1] })),
-          submissions: Object.entries(a.submissions)
+          id: a[0],
+          name: a[1],
+          description: a[2],
+          sceneId: a[3],
+          imageUrl: a[4],
+          tags: a[5].map(t => ({ name: t[0], linkName: t[1] })),
+          submissions: Object.entries(a[6])
             .map(([name, [times, avatarUrl]]: any) => ({ name, times, avatarUrl })),
         }))
       this.setState({ adventures: adv, title })

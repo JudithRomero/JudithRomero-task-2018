@@ -31,7 +31,7 @@ describe('/auth', () => {
     const res3 = await chai.request(app).post('/auth/login')
       .send({ username: '--droptables', password: '1234' }).redirects(0)
     assert.equal(res.status, 200)
-    assert.include(res.header['set-cookie'], 'username=--droptables; Path=/')
+    assert.include(res.header['set-cookie'], 'username=--droptables; Path=/; SameSite=Strict')
     assert.equal(res2.status, 302)
     assert.equal(res3.status, 200)
   })

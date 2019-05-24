@@ -40,11 +40,12 @@ export default class Search extends React.Component {
       const adv = adventures.map(a => ({
         id: a[0],
         name: a[1],
-        imageUrl: a[2],
+        description: a[2],
         sceneId: a[3],
-        description: a[4],
+        imageUrl: a[4],
         tags: a[5].map(t => ({ name: t[0], linkName: t[1] })),
-        submissions: [],
+        submissions: Object.entries(a[6])
+          .map(([name, [times, avatarUrl]]: any) => ({ name, times, avatarUrl })),
       }))
       this.page += 1
       this.setState({ adventures: this.state.adventures.concat(adv) })
