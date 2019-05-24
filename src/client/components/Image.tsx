@@ -30,6 +30,6 @@ export default class Image extends React.Component<Props> {
   render() {
     const { className, src, placeholder } = this.props
     this.setPlaceholder()
-    return <img className={className} src={placeholder ? src || 'none' : src} ref={this.ref} />
+    return <img className={className} src={src || placeholder} ref={this.ref} />
   }
 }

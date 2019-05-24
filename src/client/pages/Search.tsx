@@ -15,32 +15,50 @@ export default class Search extends React.Component {
   inputRef = React.createRef<HTMLInputElement>()
 
   async componentWillMount() {
-    const tags = await fetch('/api/tags').then(x => x.json())
-    const allTags = {}
-    tags.forEach(([k, v]) => {
-      allTags[k] = v
-    })
-    this.allTags = allTags
-    await this.update()
+    try {
+      const tags = await fetch('/api/tags').then(x => x.json())
+      const allTags = {}
+      tags.forEach(([k, v]) => {
+        allTags[k] = v
+      })
+      this.allTags = allTags
+      await this.update()
+    } catch {
+      alert('Во время загрузки приключений возникла ошибка, попробуйте позже')
+    }
   }
 
   update = async () => {
-    const { page, query, tags } = this
-    let qs = tags.map(t => `t=${encodeURIComponent(t.linkName)}`).join('&')
-    if (qs) qs += '&'
-    qs += `q=${encodeURIComponent(query)}&`
-    qs += `p=${page}`
-    const adventures = await fetch(`/api/search?${qs}`).then(x => x.json())
-    if (!this.mounted || (!adventures.length && this.state.adventures.length)) return
-    const adv = adventures.map(a => ({
-      name: a[0],
-      imageUrl: a[1],
-      sceneId: a[2],
-      description: a[3],
-      tags: a[4].map(t => ({ name: t[0], linkName: t[1] })),
-    }))
-    this.page += 1
-    this.setState({ adventures: this.state.adventures.concat(adv) })
+    try {
+      const { page, query, tags } = this
+      let qs = tags.map(t => `t=${encodeURIComponent(t.linkName)}`).join('&')
+      if (qs) qs += '&'
+      qs += `q=${encodeURIComponent(query)}&`
+      qs += `p=${page}`
+      const adventures = await fetch(`/api/search?${qs}`).then(x => x.json())
+      if (!this.mounted || (!adventures.length && this.state.adventures.length)) return
+      const adv = adventures.map(a => ({
+        id: a[0],
+        name: a[1],
+        imageUrl: a[2],
+        sceneId: a[3],
+        description: a[4],
+        tags: a[5].map(t => ({ name: t[0], linkName: t[1] })),
+        submissions: [],
+      }))
+      this.page += 1
+      this.setState({ adventures: this.state.adventures.concat(adv) })
+    } catch {
+      alert('Во время загрузки приключений возникла ошибка, попробуйте позже')
+    }
+  }
+
+  async componentWillReceiveProps() {
+    this.page = 0
+    this.query = ''
+    this.tags = []
+    this.setState({ adventures: [], tags: [] })
+    await this.update()
   }
 
   componentWillUnmount() {
@@ -82,7 +100,9 @@ export default class Search extends React.Component {
               <SuggestionBox maxSuggestions={5} placeHolder="Хештег" onSuggest={this.onSuggest} suggestions={this.allTags} />
               {this.state.tags.map((t, i) => <span key={i} className={[style.button, style.buttonBtag].join(' ')}>
                 #{t.name}
-                <span onClick={this.removeTag(i)} className={style.buttonBtagCross}>✕</span>
+                <span onMouseEnter={(e: any) => e.target.parentNode.classList.add(style.hover)}
+                  onMouseLeave={(e: any) => e.target.parentNode.classList.remove(style.hover)}
+                  onClick={this.removeTag(i)} className={style.buttonBtagCross}>✕</span>
               </span>)}
             </div>
           </form>

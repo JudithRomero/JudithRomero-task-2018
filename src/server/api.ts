@@ -53,9 +53,9 @@ export default (models: Models) => {
     rows.forEach((row: any) => {
       if (!(row.id in dbAdventures)) {
         const tags = row.tagName ? [[row.tagName, row.linkName]] : []
-        dbAdventures[row.id] = [row.name, row.imageUrl, row.sceneId, row.description, tags]
+        dbAdventures[row.id] = [row.id, row.name, row.imageUrl, row.sceneId, row.description, tags]
       } else if (row.tagName) {
-        dbAdventures[row.id][4].push([row.tagName, row.linkName])
+        dbAdventures[row.id][5].push([row.tagName, row.linkName])
       }
     })
     res.json(Object.values(dbAdventures))
@@ -68,7 +68,7 @@ export default (models: Models) => {
         include: [{
           model: models.adventure,
           where: { sceneId: { [Op.not]: null } },
-          include: [models.tag],
+          include: [models.tag, { model: models.submission, include: [models.user] }],
         }],
         where: { linkName: tag },
       })
@@ -76,13 +76,22 @@ export default (models: Models) => {
       res.sendStatus(404)
       return
     }
-    const adventures = tagData.adventures.map((x: any) => ({
-      name: x.name,
-      description: x.description,
-      sceneId: x.sceneId,
-      imageUrl: x.imageUrl,
-      tags: x.tags.map((t: any) => [t.name, t.linkName]),
-    }))
+    const adventures = tagData.adventures.map((x: any) => {
+      const submissions: any = {}
+      x.submissions.forEach((s: any) => {
+        const prev = (submissions[s.user.name] && submissions[s.user.name][0]) || 0
+        submissions[s.userName] = [prev + 1, s.user.avatarUrl]
+      })
+      return {
+        id: x.id,
+        name: x.name,
+        description: x.description,
+        sceneId: x.sceneId,
+        imageUrl: x.imageUrl,
+        tags: x.tags.map((t: any) => [t.name, t.linkName]),
+        submissions,
+      }
+    })
     res.json({ adventures, title: tagData.name })
   })
 
@@ -93,11 +102,16 @@ export default (models: Models) => {
 
   get('/scene/:sceneId', async (req, res) => {
     const { sceneId } = req.params
+    const adventureId = req.query.a
     const dbScene: any = await models.scene
       .findByPk(sceneId, { include: [models.action, models.achievement] })
     if (!dbScene) {
       res.sendStatus(404)
       return
+    }
+    const userName = (req as any).session.username
+    if (dbScene.final && userName && adventureId) {
+      await models.submission.create({ userName, adventureId })
     }
     const scene = {
       description: dbScene.description,

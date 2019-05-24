@@ -1,20 +1,15 @@
 import express from 'express'
-import path from 'path'
 import webpack from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
-import history from 'connect-history-api-fallback'
 import webpackConfig from '../client/webpack.dev'
-import { errorMiddleware } from './app'
-import apiRouter from './api'
+import { errorMiddleware, configure } from './app'
 import { init, connect, Models } from './models'
 
 
 const getDevApp = (models: Models) => {
   const app = express()
   const w = webpack(webpackConfig)
-  app.use('/api', apiRouter(models))
-  app.use('/', express.static(path.join(__dirname, 'static')))
-  app.use(history())
+  configure(app, models)
   app.use(webpackDevMiddleware(w, { stats: 'minimal' }))
   app.use(errorMiddleware)
   return app

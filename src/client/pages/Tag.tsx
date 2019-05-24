@@ -13,12 +13,21 @@ export default class Tag extends React.Component<any> {
   }
 
   async componentWillReceiveProps(nextProps) {
-    const { tagName } = nextProps.match.params
-    const { adventures, title } = await fetch(`/api/tag/${tagName}`).then(x => x.json())
-    if (!this.mounted) return
-    const adv: AdventureProp[] = adventures
-      .map(a => ({ ...a, tags: a.tags.map(t => ({ name: t[0], linkName: t[1] })) }))
-    this.setState({ adventures: adv, title })
+    try {
+      const { tagName } = nextProps.match.params
+      const { adventures, title } = await fetch(`/api/tag/${tagName}`).then(x => x.json())
+      if (!this.mounted) return
+      const adv: AdventureProp[] = adventures
+        .map(a => ({
+          ...a,
+          tags: a.tags.map(t => ({ name: t[0], linkName: t[1] })),
+          submissions: Object.entries(a.submissions)
+            .map(([name, [times, avatarUrl]]: any) => ({ name, times, avatarUrl })),
+        }))
+      this.setState({ adventures: adv, title })
+    } catch {
+      alert('Во время загрузки приключений возникла ошибка, попробуйте позже')
+    }
   }
 
   componentWillUnmount() {
@@ -28,9 +37,9 @@ export default class Tag extends React.Component<any> {
   render() {
     return <React.Fragment>
       <Header />
-      <main className={style.main}>
+      <div className={style.main}>
         <Adventures {...this.state} />
-      </main>
+      </div>
     </React.Fragment>
   }
 }

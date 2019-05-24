@@ -15,10 +15,14 @@ export default class Scene extends React.Component<any> {
   }
 
   async componentWillReceiveProps(nextProps) {
-    const { sceneId } = nextProps.match.params
-    const scene = await fetch(`/api/scene/${sceneId}`).then(x => x.json())
-    if (!this.mounted) return
-    this.setState(scene)
+    try {
+      const { sceneId } = nextProps.match.params
+      const scene = await fetch(`/api/scene/${sceneId}${window.location.search}`).then(x => x.json())
+      if (!this.mounted) return
+      this.setState(scene)
+    } catch {
+      alert('Во время загрузки сцены произошла ошибка, попробуйте перезагрузить страницу')
+    }
   }
 
   componentWillUnmount() {
@@ -48,7 +52,7 @@ export default class Scene extends React.Component<any> {
               </div>
             </div>)}</div>
           <div className={style.actions}>{actions.map((a, i) => <NavLink key={i}
-            className={actionClass} to={`/scene/${a[0]}`}>{a[1]}</NavLink>)}</div>
+            className={actionClass} to={`/scene/${a[0]}${window.location.search}`}>{a[1]}</NavLink>)}</div>
         </div>
       </div>
     </React.Fragment>

@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import Image from './Image'
 import * as style from '../style.css'
 import * as placeholderPath from '../static/adventure_placeholder.png'
+import Avatar from './Avatar'
 
 
 export interface Tag {
@@ -10,12 +11,20 @@ export interface Tag {
   linkName: string
 }
 
+export interface Submission {
+  name: string
+  avatarUrl: string
+  times: number
+}
+
 export interface AdventureProp {
+  id: number,
   name: string
   sceneId: string
   imageUrl?: string
   description?: string
   tags: Tag[]
+  submissions: Submission[]
 }
 
 export interface Props {
@@ -55,12 +64,15 @@ export default class Adventures extends React.Component<Props> {
   render() {
     const setRef = i => (i === this.props.adventures.length ? { ref: this.lastTitleRef } : {})
     const adventures = this.props.adventures.map((a, i) => <div key={i} className={style.adventure}>
-      <NavLink className={style.adventureImgLink} title={a.name} to={`/scene/${a.sceneId}`}>
+      <NavLink className={style.adventureImgLink} title={a.name} to={`/scene/${a.sceneId}?a=${a.id}`}>
         <Image src={a.imageUrl} placeholder={placeholderPath} className={style.adventureImg} />
       </NavLink>
       <div {...setRef(i + 1)}>
-        <NavLink className={style.adventureName} title={a.name} to={`/scene/${a.sceneId}`}>{a.name}</NavLink>
+        <NavLink className={style.adventureName} title={a.name} to={`/scene/${a.sceneId}?a=${a.id}`}>{a.name}</NavLink>
         <p className={style.adventureDesc}>{a.description}</p>
+        <div className={style.adventureAvatars}>{a.submissions.map(((x, j) => <Avatar key={j}
+          url={x.avatarUrl} circleText={x.times === 1 ? null : String(x.times)}
+          title={x.name} />))}</div>
         {a.tags.map((t, j) => <NavLink key={j} className={`${style.button} ${style.buttonTag}`}
           to={`/tag/${t.linkName}`}>#{t.name}</NavLink>)}
       </div>
