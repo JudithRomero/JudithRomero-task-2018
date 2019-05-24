@@ -9,6 +9,19 @@ import Scene from './pages/Scene'
 import NotFound from './pages/NotFound'
 
 
+// IE polyfill: https://stackoverflow.com/a/45851440
+if (!Object.entries) {
+  Object.entries = (obj) => {
+    const ownProps = Object.keys(obj)
+    const resArray = new Array(ownProps.length)
+    for (let i = 0; i < resArray.length; i++) {
+      resArray[i] = [ownProps[i], obj[ownProps[i]]]
+    }
+
+    return resArray
+  }
+}
+
 const App = () => <BrowserRouter>
   <Switch>
     <Route exact path="/" component={Search} />

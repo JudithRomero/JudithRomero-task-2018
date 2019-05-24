@@ -14,6 +14,11 @@ export const errorMiddleware = (err: Error, req: Request, res: Response, next: N
   next()
 }
 
+const noCacheMiddleware = (req: Request, res: Response, next: NextFunction) => {
+  res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private')
+  next()
+}
+
 export const configure = (app: Application, models: Models) => {
   app.use(cookieParser())
   app.use(cookieSession({
@@ -22,8 +27,8 @@ export const configure = (app: Application, models: Models) => {
   }))
   app.use(express.json())
   app.use(express.urlencoded({ extended: true }))
-  app.use('/api', csrfMiddleware, apiRouter(models))
-  app.use('/auth', csrfMiddleware, authRouter(models))
+  app.use('/api', noCacheMiddleware, csrfMiddleware, apiRouter(models))
+  app.use('/auth', noCacheMiddleware, csrfMiddleware, authRouter(models))
   app.use('/', express.static(path.join(__dirname, 'static')))
   app.use(logoutMiddleware)
   app.use(history())

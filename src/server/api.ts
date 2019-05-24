@@ -34,7 +34,7 @@ export default (models: Models) => {
     if (t) {
       const adv2 = await models.adventure.findAndCountAll({
         where: {
-          [Op.or]: [{ name: { [Op.iLike]: query } }, { name: { [Op.iLike]: query } }],
+          [Op.or]: [{ name: { [Op.iLike]: query } }, { description: { [Op.iLike]: query } }],
           sceneId: { [Op.not]: null },
         },
         offset: page * 5,
@@ -69,7 +69,7 @@ export default (models: Models) => {
     } else {
       const dbAdventures = await models.adventure.findAndCountAll({
         where: {
-          [Op.or]: [{ name: { [Op.iLike]: query } }, { name: { [Op.iLike]: query } }],
+          [Op.or]: [{ name: { [Op.iLike]: query } }, { description: { [Op.iLike]: query } }],
           sceneId: { [Op.not]: null },
         },
         offset: page * 5,

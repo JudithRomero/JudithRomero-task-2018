@@ -21,7 +21,8 @@ export default class Scene extends React.Component<any> {
       if (!this.mounted) return
       this.setState(scene)
     } catch {
-      alert('Во время загрузки сцены произошла ошибка, попробуйте перезагрузить страницу')
+      if (!this.mounted) return
+      this.setState({ description: '', textAlign: '', imageUrl: '', actions: [], achievements: [] })
     }
   }
 
