@@ -12,17 +12,8 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="manifest" href="/site.webmanifest">
     <link href="https://fonts.googleapis.com/css?family=Gabriela|Roboto" rel="stylesheet">
-    <link href="/style.css" rel="stylesheet">
-    <link rel="preload" href="/android-chrome-512x512.png" as="image">
+    <script src="https://cdn.jsdelivr.net/npm/promise-polyfill@8.1.0/dist/polyfill.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fetch-polyfill@0.8.2/fetch.min.js"></script>
   </head>
-  <body>
-    <header class="header">
-      <a href="/" class="logo">
-        <div class="logo-icon"></div>
-        <span class="logo-left">Judith</span>
-        <span class="logo-right">Games</span>
-      </a>
-    </header>
-    <main class="main">{{> @partial-block }}</main>
-  </body>
+  <body><div id="app"></div></body>
 </html>

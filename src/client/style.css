@@ -2,7 +2,7 @@
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
 }
 
-.adventure, .tag-title, .scene-image, .achievement {
+.adventure, .tag-title, .avatar-circle, .header-username, .scene-image, .achievement {
   font-family: 'Gabriela', Georgia, 'Times New Roman', Times, serif;
 }
 
@@ -21,7 +21,7 @@ body {
 
 .logo-icon {
   padding: 1ch;
-  background: no-repeat url('/logo_icon.svg') left center;
+  background: no-repeat url('./static/logo_icon.svg') left center;
 }
 
 .logo {
@@ -35,6 +35,7 @@ body {
 .header {
   border-bottom: 1px solid #959393;
   display: flex;
+  justify-content: space-between;
   height: 95px;
 }
 
@@ -53,7 +54,7 @@ body {
   width: 950px;
 }
 
-.adventure-name, .adventure-desc, .tag-title {
+.adventure-name, .adventure-desc, .tag-title, .header-username, .avatar-circle {
   font-size: 30px;
   color: #000;
   margin: 0;
@@ -84,6 +85,8 @@ body {
 
 .adventure-img {
   height: 200px;
+  min-width: 200px;
+  background: #c62828;
 }
 
 .adventure-img-link {
@@ -115,7 +118,7 @@ body {
   transition: background .3s;
 }
 
-.button-tag, .button-search, .button-btag {
+.button-tag, .button-search, .button-login, .button-btag {
   font-size: 18px;
   background: #b3b3b3;
   padding: 8px 15px;
@@ -132,6 +135,19 @@ body {
   background: #eee;
 }
 
+.button-register {
+  color: #b3b3b3;
+  background: #eee;
+  font-size: 18px;
+  padding: 8px 15px;
+  display: inline-block;
+}
+
+.button-register:hover {
+  background: #b3b3b3;
+  color: #fff;
+}
+
 .button-search {
   background: #C62828;
 }
@@ -141,10 +157,21 @@ body {
   color: #C62828;
 }
 
+.button-login {
+  background: #eee;
+  color: #C62828;
+}
+
+.button-login:not(.disabled):hover {
+  color: #eee;
+  background: #C62828;
+}
+
 .button-btag-cross {
   cursor: pointer;
   margin-left: 1ch;
   font-size: 90%;
+  user-select: none;
 }
 
 .button-btag {
@@ -152,6 +179,11 @@ body {
   background: #2C9CDB;
   margin-right: 15px;
   margin-bottom: 15px;
+}
+
+.button-btag.hover {
+  background: #eee;
+  color: #2C9CDB;
 }
 
 .scene-image {
@@ -179,8 +211,9 @@ body {
   line-height: 36px;
   margin: 0;
   color: #fff;
-  padding: 20px;
-  text-shadow: 0 0 2px #000, 0 0 2px #000, 0 0 2px #000, 0 0 2px #000, 0 0 2px #000, 0 0 2px #000;
+  margin: 20px 12px;
+  padding: 0px 8px;
+  background: #000;
   white-space: pre;
 }
 
@@ -237,6 +270,7 @@ body {
   border-radius: 50%;
   width: 147px;
   height: 147px;
+  flex: 0 0 147px;
   background: #C62828;
   margin-right: 21px;
   object-fit: cover;
@@ -319,4 +353,71 @@ body {
 
 .tagbox-suggestion:last-child {
   border-bottom: 1px solid #ccc;
+}
+
+.header-buttons {
+  margin-right: 50px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.header-buttons > .button-login {
+  margin: 0 15px;
+}
+
+.header-username {
+  margin: 0 15px;
+  font-size: 32px;
+}
+
+.avatar {
+  position: relative;
+}
+
+.avatar-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #ccc no-repeat;
+  background-size: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.avatar-circle {
+  background: #fff;
+  font-size: 20px;
+  border-radius: 15px;
+  position: absolute;
+  right: -8px;
+  top: -4px;
+  margin: 0;
+  min-width: 18px;
+  height: 28px;
+  padding: 0 5px;
+  text-align: center;
+}
+
+.login-form-input {
+  width: 300px;
+  height: 34px;
+}
+
+.login-form-field {
+  margin: 20px 0;
+}
+
+.disabled {
+  cursor: wait;
+  opacity: 0.5;
+}
+
+.adventure-avatars {
+  display: flex;
+}
+
+.adventure-avatars > .avatar {
+  margin-right: 15px;
+  margin-bottom: 15px;
 }

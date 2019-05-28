@@ -4,45 +4,67 @@
   "description": "",
   "private": true,
   "scripts": {
-    "test": "npm run lint:eslint && npm run tscheck",
-    "lint:eslint": "eslint --ext .ts src test",
-    "tscheck": "tsc -p . --noEmit",
-    "dev": "tsnd --respawn --transpileOnly -r dotenv/config ./src/index.ts",
-    "build": "tsc && copyfiles -u 1 src/static/* src/views/* build",
+    "test": "npm run lint:eslint && npm run lint:tscheck",
+    "lint:eslint": "eslint --ext .ts,.tsx src test",
+    "lint:tscheck": "tsc -p src/server --noEmit && tsc -p src/client --noEmit && tsc -p test --noEmit",
+    "dev": "tsnd --respawn --transpileOnly -r dotenv/config -P src/server/tsconfig.json src/server/dev.ts",
+    "build": "npm run build:server && npm run build:static && npm run build:client",
+    "build:static": "copyfiles -u 2 src/server/static/* build",
+    "build:server": "tsc -p src/server",
+    "build:client": "webpack --config src/client/webpack.config.js",
     "rebuild": "rimraf build && npm run build",
     "start": "node ./build",
-    "mocha": "mocha -r test/ts-hook test/**/*.ts",
+    "restart": "npm run rebuild && node -r dotenv/config ./build",
+    "mocha": "mocha -r test/ts-hook test/**/*.spec.ts",
     "deploy": "heroku container:login && heroku container:push web -a judithromero-task-2018 && heroku container:release web -a judithromero-task-2018"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm run tscheck"
+      "pre-commit": "lint-staged && npm run lint:tscheck"
     }
   },
   "lint-staged": {
-    "*.ts": "eslint"
+    "*.ts": "eslint",
+    "*.tsx": "eslint"
   },
   "keywords": [],
   "author": "judithromero",
   "license": "UNLICENSED",
   "dependencies": {
+    "@types/bcrypt": "^3.0.0",
     "@types/express": "^4.16.1",
-    "@types/hbs": "^4.0.1",
+    "@types/react": "^16.8.17",
+    "@types/react-dom": "^16.8.4",
     "@types/sequelize": "^4.27.46",
+    "bcrypt": "^3.0.6",
+    "connect-history-api-fallback": "^1.6.0",
+    "cookie-parser": "^1.4.4",
+    "cookie-session": "^1.3.3",
     "copyfiles": "^2.1.0",
+    "css-loader": "^2.1.1",
     "express": "^4.16.4",
-    "hbs": "^4.0.4",
+    "file-loader": "^3.0.1",
+    "html-webpack-plugin": "^3.2.0",
     "latin-to-cyrillic": "^1.0.1",
+    "mini-css-extract-plugin": "^0.6.0",
     "pg": "^7.9.0",
     "pg-hstore": "^2.3.2",
     "random-words": "^1.1.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0",
     "sequelize": "^5.7.1",
-    "typescript": "^3.4.2"
+    "style-loader": "^0.23.1",
+    "ts-loader": "^6.0.1",
+    "typescript": "^3.4.2",
+    "webpack": "^4.31.0",
+    "webpack-cli": "^3.3.2"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
     "@types/lodash": "^4.14.123",
     "@types/mocha": "^5.2.6",
+    "@types/webpack": "^4.4.31",
     "@typescript-eslint/eslint-plugin": "^1.6.0",
     "@typescript-eslint/parser": "^1.6.0",
     "chai": "^4.2.0",
@@ -51,6 +73,7 @@
     "eslint": "^5.16.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-react": "^7.13.0",
     "heroku": "^7.22.10",
     "husky": "^1.3.1",
     "lint-staged": "^8.1.5",
@@ -58,6 +81,7 @@
     "mocha": "^6.1.4",
     "rimraf": "^2.6.3",
     "ts-node": "^8.1.0",
-    "ts-node-dev": "^1.0.0-pre.32"
+    "ts-node-dev": "^1.0.0-pre.32",
+    "webpack-dev-middleware": "^3.7.0"
   }
 }
