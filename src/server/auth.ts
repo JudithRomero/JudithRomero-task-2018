@@ -3,7 +3,7 @@ import { hash, compare } from 'bcrypt'
 import { Models } from './models'
 
 
-export const checkUsername = (username: string) => username && !!/^[a-z0-9-]{1,50}$/.exec(username)
+export const checkUsername = (username: string) => username && !!/^[a-z0-9-]{1,50}$/i.exec(username)
 export const checkPassword = (password: string) => password.length && password.length < 50
 export const getImgurUrl = (imgurId: string) => imgurId && /^\w+$/.exec(imgurId) && `https://i.imgur.com/${imgurId}.png`
 export const getHash = async (plain: string) => new Promise<string>(

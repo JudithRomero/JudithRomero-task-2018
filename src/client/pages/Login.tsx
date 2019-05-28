@@ -18,7 +18,7 @@ export default class Login extends React.Component {
       },
       body: JSON.stringify({ username, password, csrf: getCookie('csrf') }),
     })
-    if (res.status !== 200) alert('Не получилось войти. Возможно, вы ввели неправли логин или пароль')
+    if (res.status !== 200) alert('Не получилось войти. Возможно, вы неправильно ввели логин или пароль')
     else window.location.href = '/'
   }
 
